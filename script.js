@@ -1,5 +1,10 @@
 console.log("Script started");
 
+// Global variables to track the two circles that are being matched
+let circle1 = null;
+let circle2 = null;
+
+
 function start() {
     console.log("click");
 
@@ -41,6 +46,8 @@ function createCircle(num) {
     // Add the circle to the page
     document.body.appendChild(circle);
 
+    circle.addEventListener("click", handleClick);
+
 }
 
 // Generate random X coordinates
@@ -59,4 +66,24 @@ function getRandomNum() {
     let rand = Math.random() * 100;
     rand = Math.floor(rand);
     return rand;
+}
+
+function handleClick(event) {
+    let circle = event.target;
+
+    // Determine which choice this is
+    if (circle1 == null) {
+        circle1 = circle;
+    }
+    else {
+        circle2 = circle;
+        // Determine if their numbers match
+         if (circle1.innerText == circle2.innerText) {
+            console.log("match");
+            circle1.remove();
+            circle2.remove();
+            circle1 = null;
+            circle2 = null;
+        }
+    }
 }
